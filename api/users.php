@@ -7,13 +7,17 @@
  */
 
 
-if(isset($_POST['id']) && isset($_POST['name'] && $_POST['email'])){
+if(isset($_POST['id']) && isset($_POST['Name'] && $_POST['Email'])){
     mysql_connect('localhost','root','root');
     mysql_select_db('angular_test');
     $name=mysql_real_escape_string($_POST['name']);
     $email=mysql_real_escape_string($_POST['email']);
     mysql_query("INSERT INTO `employee` (`id`, `name`, `email`) VALUES (NULL, '$name', '$email'')");
-    echo '1';
+    http_response_code(200);
+    header('HTTP/1.1 200 OK');
+    echo json_encode(['status'=>'1','message'=>'Data added successfully!','data'=>'']);
 }else{
-    echo '0';
+    http_response_code(500);
+    header('HTTP/1.1 500');
+    echo json_encode(['status'=>'1','message'=>'Something went wrong','data'=>'']);
 }
